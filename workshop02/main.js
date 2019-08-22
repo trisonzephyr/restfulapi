@@ -115,7 +115,23 @@ app.get('/api/city/:cityId',
 
 
 // TODO POST /api/city
-
+app.post('/api/city',
+	(req, resp) => {
+		const data = req.body;
+		console.info('>> data: ', data);
+		db.insertCity(data)
+			.then(result => {
+				resp.status(201);
+				resp.type('application/json');
+				resp.json({message: 'added'});
+			})
+			.catch(error =>{
+				resp.status(400);
+				resp.type('text/plain');
+				resp.send(error);
+			})
+	}
+)
 
 
 // Optional workshop
